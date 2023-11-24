@@ -85,22 +85,22 @@ if __name__ == "__main__":
 
     # Question 1
     print("Question 1:")
-    q1 = cleaned_frame.filter("""UNIQUE_CARRIER == 'AA' AND YEAR == '2011'""")
+    q1 = cleaned_frame.filter(cleaned_frame['UNIQUE_CARRIER'] == 'AA').filter(cleaned_frame['YEAR'] == '2011')
     print(q1.count())
 
     # Question 2
     print("Question 2:")
-    q2 = q1.filter("""ARR_DELAY <= 10""")
+    q2 = q1.filter(q1['ARR_DELAY'] <= 10)
     print(q2.count())
     
     # Question 3
     print("Question 3:")
-    q3 = cleaned_frame.filter("""DEP_DELAY > 0""").select('DAY_OF_WEEK').groupBy('DAY_OF_WEEK')
+    q3 = cleaned_frame.filter(cleaned_frame['DEP_DELAY'] > 0).select('DAY_OF_WEEK').groupBy('DAY_OF_WEEK')
     q3.count().show()
 
     # Question 4
     print("Question 4:")
-    temp = cleaned_frame.filter("""YEAR == '2011'""")
+    temp = cleaned_frame.filter(cleaned_frame['YEAR'] == '2011')
     cd = temp.filter(cleaned_frame['CARRIER_DELAY']!= 0).count()
     wd = temp.filter(cleaned_frame['WEATHER_DELAY']!= 0).count()
     nd = temp.filter(cleaned_frame['NAS_DELAY']!= 0).count()
